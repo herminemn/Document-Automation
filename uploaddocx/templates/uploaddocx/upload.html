@@ -5,16 +5,23 @@
     <br />
     <br />
     <button type="submit">Upload</button>
+    <br />
+    <br />
+    <br />
 </form>
 
-{% for variable in variables %}
-    {{ variable }}. <br /><input type="text", name="{{ variable }}">
-    <br />
-    <br />
+<form method="post">
+    {% csrf_token %}
+    {% if variables %}
+    {% for variable in variables %}
+        {% for v in variable %}
+            {{ v }} <br /><input type="text", name="replaced_word">
+        <br />
+        <br />
+        {% endfor %}
+    {% endfor %}
 
-{% endfor %}
-
-
-
-
+    <input type="submit" value="Download">
+    {% endif %}
+</form>
 {% endblock %}
