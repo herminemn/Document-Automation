@@ -1,6 +1,8 @@
 from django import forms
+from .models import DocFile
 
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
+class UploadFileForm(forms.ModelForm):
+    class Meta:
+        model = DocFile
+        fields = ('contract_Title', 'contract_Doc_File')

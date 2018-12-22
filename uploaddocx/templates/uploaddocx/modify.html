@@ -1,0 +1,21 @@
+{% block content %}
+
+{% if error %}
+{{ error }}
+<br />
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {% if variables %}
+    {% for variable in variables %}
+        {% for var in variable %}
+            {{ var }} <br /><input type="text", name="replaced_word">
+        <br />
+        <br />
+        {% endfor %}
+    {% endfor %}
+    <input type="submit" value="Download" name="pressed">
+    {% endif %}
+</form>
+{% endblock %}

@@ -1,27 +1,9 @@
+{% load crispy_forms_tags %}
+
 {% block content %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="file" name="myfile">
-    <br />
-    <br />
-    <button type="submit">Upload</button>
-    <br />
-    <br />
-    <br />
-</form>
-
-<form method="post">
-    {% csrf_token %}
-    {% if variables %}
-    {% for variable in variables %}
-        {% for v in variable %}
-            {{ v }} <br /><input type="text", name="replaced_word">
-        <br />
-        <br />
-        {% endfor %}
-    {% endfor %}
-
-    <input type="submit" value="Download">
-    {% endif %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Upload</button>
 </form>
 {% endblock %}

@@ -1,0 +1,38 @@
+{% block content %}
+
+<h2>Uploaded Documents</h2>
+<form action="{% url 'upload_doc' %}">
+    <input type="submit" value="Upload a Contract Template">
+</form>
+<br />
+<br />
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Contract</th>
+        <th>Make Changes</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for upload in uploads %}
+        <tr>
+            <td>{{ upload.contract_Title }}</td>
+            <td>
+                <form action="{% url 'modify' %}">
+                    <input type="submit" value="Edit Contract">
+                </form>
+            </td>
+            <td>
+                <form method="post" action="{% url 'delete_uploaded_doc' upload.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
