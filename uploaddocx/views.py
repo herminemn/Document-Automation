@@ -5,18 +5,20 @@ from .forms import UploadFileForm
 from .models import DocFile
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.urls import reverse_lazy
+from django.template import RequestContext
 from docx import Document
 import re
 
 
-def simple_upload(request):
-    context = {}
-    if request.method == 'POST':
-        uploaded_file = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(uploaded_file.name, uploaded_file)
-        context['url'] = fs.url(filename)
-    return render(request, 'uploaddocx/upload.html', context)
+# def simple_upload(request):
+#     context = {}
+#     if request.method == 'POST':
+#         uploaded_file = request.FILES['myfile']
+#         fs = FileSystemStorage()
+#         filename = fs.save(uploaded_file.name, uploaded_file)
+#         context['url'] = fs.url(filename)
+#     return render(request, 'uploaddocx/upload.html', context)
 
 
 def doc_list(request):
@@ -39,10 +41,26 @@ def upload_doc(request):
     })
 
 
-def modify(request, pk):
+def modify(request):
     if request.method == 'POST':
-        return redirect('modify.html')
-#         filename = DocFile.objects.get(pk=pk)
+        # filename = request.FILES[pk]
+        # document = Document(filename)
+        # variables = []
+        # for paragraph in document.paragraphs:
+        #     match = re.findall(r"\{(.*?)\}", paragraph.text)
+        #     variables.append(match)
+        # for table in document.tables:
+        #     for row in table.rows:
+        #         for cell in row.cells:
+        #             match = re.findall(r"\{(.*?)\}", cell.text)
+        #             variables.append(match)
+        # document.save(filename)
+        return render(request, 'uploaddocx/modify.html')
+    return render(request, 'uploaddocx/doc_list.html')
+
+# def modify(request, pk):
+#     if request.method == 'POST' and request.FILES[pk]:
+#         filename = DocFile.contract_Doc_File.objects.get(pk=pk)
 #         document = Document(filename)
 #         variables = []
 #         for paragraph in document.paragraphs:
@@ -55,7 +73,26 @@ def modify(request, pk):
 #                     variables.append(match)
 #         document.save(filename)
 #         return render(request, pk, 'uploaddocx/modify.html', {'variables': variables})
-#     return render(request, pk, 'uploaddocx/modify.html')
+#     return render(request, pk, 'uploaddocx/doc_list.html')
+
+# def variable_input(request, pk):
+#     if request.method == 'POST' and request.FILES[pk]:
+#         myfile = request.FILES[pk]
+#         fs = FileSystemStorage()
+#         filename = fs.save(myfile.name, myfile)
+#         document = Document(filename)
+#         variables = []
+#         for paragraph in document.paragraphs:
+#             match = re.findall(r"\{(.*?)\}", paragraph.text)
+#             variables.append(match)
+#         for table in document.tables:
+#             for row in table.rows:
+#                 for cell in row.cells:
+#                     match = re.findall(r"\{(.*?)\}", cell.text)
+#                     variables.append(match)
+#         document.save(filename)
+#         return render(request, 'uploaddocx/upload.html', {'variables': variables})
+#     return render(request, 'uploaddocx/upload.html')
 
 
 def delete_uploaded_doc(request, pk):

@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.files import File
+from docx import Document
 
 
 class DocFile(models.Model):
@@ -11,3 +13,7 @@ class DocFile(models.Model):
     def delete(self, *args, **kwargs):
         self.contract_Doc_File.delete()
         super().delete(*args, **kwargs)
+
+    # def edit(self, *args, **kwargs):
+    #     self.contract_Doc_File.chunks()
+    #     super().edit(*args, **kwargs)

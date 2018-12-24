@@ -20,7 +20,7 @@
         <tr>
             <td>{{ upload.contract_Title }}</td>
             <td>
-                <form action="{% url 'modify' %}">
+                <form method="post" action="{% url 'modify' %}" target="_blank">{% csrf_token %}
                     <input type="submit" value="Edit Contract">
                 </form>
             </td>
